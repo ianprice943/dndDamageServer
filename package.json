@@ -1,0 +1,38 @@
+{
+  "name": "dnddamageserver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node dist/index",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webpack": "webpack --config webpack.config.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-jwt": "^6.0.0",
+    "express-jwt-authz": "^2.4.1",
+    "helmet": "^4.3.1",
+    "jwks-rsa": "^1.12.2",
+    "lodash": "^4.17.20"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.9",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.9",
+    "@types/express-jwt": "^6.0.0",
+    "@types/helmet": "^4.0.0",
+    "@types/lodash": "^4.14.167",
+    "@types/node": "^14.14.20",
+    "ts-loader": "^6.2.2",
+    "typescript": "^4.1.3",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12",
+    "webpack-node-externals": "^1.7.2"
+  }
+}
