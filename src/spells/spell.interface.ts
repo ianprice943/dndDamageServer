@@ -1,5 +1,7 @@
 import { DnDClass } from "../classInterfaces/class.interface";
 import { DamageType } from "../damageProperties/damageType.enum";
+import { Damage } from "../damageProperties/damage.interface";
+import { NumTargets } from "../damageProperties/numTargets.interface";
 
 export enum School {
   Abjuration = "Abjuration",
@@ -13,7 +15,7 @@ export enum School {
 }
 
 export interface AreaOfEffect {
-  type: string,
+  shape: string,
   size: number
 }
 
@@ -21,7 +23,7 @@ export interface Spell {
   id: number,
   name: string,
   classes: Array<DnDClass>,
-  subClasses?: Array<string>, //DnDSubClass is an object literal with strings as the endpoints, so an Array of strings is the best I could come up with 
+  subClasses?: Array<string>, //DnDSubClass is an object literal (due to enums not allowing sub objects/array) with strings as the endpoints, so an Array of strings is the best I could come up with 
   level: Number,
   school: School,
   castingTime: string,
@@ -33,6 +35,7 @@ export interface Spell {
   materials?: string,
   duration: string,
   description: string,
-  damage?: Object, // strings keys and string values, keys will be 'damage', 'damageAtHigherCharacterLevels', 'damageAtHigherSpellSlots'
+  damage?: Damage,
   damageType?: DamageType,
+  numTargets?: NumTargets
 }
