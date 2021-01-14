@@ -24,7 +24,7 @@ export const DnDSubClass = {
   barbarian: {
     ancenstralGuardian: "ancenstral guardian",
     battlerager: "battlerager",
-    baast: "beast",
+    beast: "beast",
     berserker: "berserker",
     stormHerald: "storm herald",
     totemWarriorBear: "totem warrior - bear",
