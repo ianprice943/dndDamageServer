@@ -35,7 +35,7 @@ const spells: Spells = {
         "17": "4d10"
       }
     },
-    damageType: DamageType.Force,
+    damageType: [DamageType.Force],
   },
   "sleep": {
     id: 2,
