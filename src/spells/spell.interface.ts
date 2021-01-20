@@ -16,7 +16,7 @@ export enum School {
 
 export interface AreaOfEffect {
   shape: string,
-  size: number
+  size: string
 }
 
 export interface Spell {
@@ -29,8 +29,8 @@ export interface Spell {
   castingTime: string,
   range: string,
   areaOfEffect?: AreaOfEffect,
-  ritual?: boolean,
-  concentration?: boolean,
+  ritual: boolean,
+  concentration: boolean,
   components: Array<string>,
   materials?: string,
   duration: string,

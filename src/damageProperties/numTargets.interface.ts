@@ -1,5 +1,5 @@
 interface NumTargetsSubObject {
-  [key: string]: string
+  [key: number]: number
 }
 
 export interface NumTargets {

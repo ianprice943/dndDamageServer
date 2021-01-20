@@ -72,10 +72,19 @@ spellsRouter.post(
   async (req: Request, res: Response) => {
     try {
       const spell: Spell = req.body.spell;
-
-      await SpellsService.createByName(spell);
-
-      res.sendStatus(201);
+      const success = await SpellsService.createByName(spell);
+      
+      if(success) {
+        const resp = {
+          created: spell.name
+        };
+        res.status(201).send(resp);
+      } else {
+        const resp = {
+          failed: "Failed to create " + spell.name + " due to it already being in the DB."
+        }
+        res.status(409).send(resp);
+      }
     } catch(e) {
       res.status(404).send(e.message);
     }
@@ -90,10 +99,19 @@ spellsRouter.put(
   async (req: Request, res: Response) => {
     try {
       const spell: Spell = req.body.spell;
+      const success = await SpellsService.update(spell);
 
-      await SpellsService.update(spell);
-
-      res.sendStatus(200);
+      if(success) {
+        const resp = {
+          updated: spell.name
+        }
+        res.status(200).send(resp);
+      } else {
+        const resp = {
+          failed: spell.name + " not updated because it was not found in the DB."
+        }
+        res.status(409).send(resp);
+      }
     } catch(e) {
       res.status(500).send(e.message);
     }

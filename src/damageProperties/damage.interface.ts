@@ -1,5 +1,5 @@
 interface DamageSubObject {
-  [key: string]: string
+  [key: number]: string
 }
 
 export interface Damage {
