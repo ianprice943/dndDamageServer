@@ -123,7 +123,7 @@ export const createByName = async (newSpell: Spell): Promise<boolean> => {
   let name = newSpell.name;
   name = _.camelCase(name);
 
-  console.log(name);
+  console.log(name + " created");
   if(spells[name] === undefined) {
     spells[name] = {
       ... newSpell,
@@ -161,12 +161,15 @@ export const removeById = async (id: number): Promise<void> => {
   throw new Error("No record found to delete");
 };*/
 
-export const removeByName = async (name: string): Promise<void> => {
+export const removeByName = async (name: string): Promise<boolean> => {
   const record: Spell = spells[name];
 
   if(record) {
     delete spells[name];
-    return;
+    return true;
+  } else {
+    console.log("Spell: " + name + " not found");
+    return false;
   }
 
   throw new Error("No record found to delete");

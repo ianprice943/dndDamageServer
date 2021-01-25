@@ -31,7 +31,7 @@ const app = express();
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
-app.use("/spells", spellsRouter);
+app.use("/api/spells", spellsRouter);
 
 app.use(errorHandler);
 app.use(notFoundHandler);

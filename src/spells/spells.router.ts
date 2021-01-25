@@ -110,7 +110,7 @@ spellsRouter.put(
         const resp = {
           failed: spell.name + " not updated because it was not found in the DB."
         }
-        res.status(409).send(resp);
+        res.status(404).send(resp);
       }
     } catch(e) {
       res.status(500).send(e.message);
@@ -139,9 +139,20 @@ spellsRouter.delete(
     try {
       let name: string = req.params.name;
       name = _.camelCase(name);
-      await SpellsService.removeByName(name);
+      const success = await SpellsService.removeByName(name);
 
-      res.sendStatus(200);
+      if(success) {
+        const resp = {
+          delete: name
+        };
+        res.status(200).send(resp);
+      } else {
+        const resp = {
+          failed: req.params.name + " was not deleted because it was not found in the DB"
+        }
+        res.status(404).send(resp);
+      }
+
     } catch(e) {
       res.status(500).send(e.message);
     }
