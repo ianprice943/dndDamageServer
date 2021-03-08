@@ -10,6 +10,9 @@ import { DamageType } from "../damageProperties/damageType.enum";
 import { NumTargets } from "../damageProperties/numTargets.interface";
 import { spellsRouter } from "./spells.router";
 
+let faunadb = require('faunadb'), q = faunadb.query;
+let client = new faunadb.Client({ secret: process.env.FAUNA_SECRET})
+
  /**
   * Mock DB
   */
@@ -90,15 +93,10 @@ export const findAll = async (): Promise<Spells> => {
   return spells;
 };
 
-/*export const findById = async (id: number): Promise<Spell> => {
-  const record: Spell = spells[id];
-
-  if (record) {
-    return record;
-  }
-
-  throw new Error("No record found");
-};*/
+export const findAllFauna = async (): Promise<Spells> => {
+  //tbd
+  return spells;
+}
 
 export const findByName = async (name: string): Promise<Spell> => {
   const record: Spell = spells[name];
@@ -110,25 +108,17 @@ export const findByName = async (name: string): Promise<Spell> => {
   throw new Error("No record found");
 }
 
-/*export const createById = async (newSpell: Spell): Promise<void> => {
-  const id = new Date().valueOf();
-  spells[id] = {
-    ...newSpell,
-    id
-  };
-};*/
-
 export const createByName = async (newSpell: Spell): Promise<boolean> => {
   const id = new Date().valueOf();
   let name = newSpell.name;
   name = _.camelCase(name);
 
-  console.log(name + " created");
   if(spells[name] === undefined) {
     spells[name] = {
       ... newSpell,
       id
     };
+    console.log(name + " created");
     return true;
   } else {
     console.log("duplicate spell " + name + " not entered in DB.")
@@ -141,6 +131,7 @@ export const update = async (updatedSpell: Spell): Promise<boolean> => {
   name = _.camelCase(name);
   if (spells[name]) {
     spells[name] = updatedSpell;
+    console.log(name + " updated");
     return true;
   } else {
     console.log("Spell: " + updatedSpell.name + " not found");
@@ -149,23 +140,13 @@ export const update = async (updatedSpell: Spell): Promise<boolean> => {
 
   throw new Error("No record found to update");
 };
-/*
-export const removeById = async (id: number): Promise<void> => {
-  const record: Spell = spells[id];
-
-  if (record) {
-    delete spells[id];
-    return;
-  }
-
-  throw new Error("No record found to delete");
-};*/
 
 export const removeByName = async (name: string): Promise<boolean> => {
   const record: Spell = spells[name];
 
   if(record) {
     delete spells[name];
+    console.log(name + " deleted");
     return true;
   } else {
     console.log("Spell: " + name + " not found");
