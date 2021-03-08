@@ -11,7 +11,8 @@ import { NumTargets } from "../damageProperties/numTargets.interface";
 import { spellsRouter } from "./spells.router";
 
 let faunadb = require('faunadb'), q = faunadb.query;
-let client = new faunadb.Client({ secret: process.env.FAUNA_SECRET})
+let readOnlyClient = new faunadb.Client({ secret: process.env.READ_ONLY_FAUNA_KEY });
+let readWriteDeleteClient = new faunadb.Client({ secret: process.env.READ_WRITE_DELETE_FAUNA_KEY });
 
  /**
   * Mock DB
@@ -94,8 +95,16 @@ export const findAll = async (): Promise<Spells> => {
 };
 
 export const findAllFauna = async (): Promise<Spells> => {
-  //tbd
-  return spells;
+  let parsedSpells: Spells; 
+  const doc = await readOnlyClient.query(
+    q.Map(
+      q.Paginate(q.Match(q.Index('spells'))),
+      q.Lambda((x:any) => q.Get(x))
+    )
+  );
+  console.log(doc);
+  parsedSpells = doc.data;
+  return parsedSpells;
 }
 
 export const findByName = async (name: string): Promise<Spell> => {

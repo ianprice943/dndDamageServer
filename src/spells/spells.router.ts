@@ -27,6 +27,7 @@ export const spellsRouter = express.Router();
 spellsRouter.get("/", async (req: Request, res: Response) => {
   try {
     const spells: Spells = await SpellsService.findAll();
+    //const spells: Spells = await SpellsService.findAllFauna();
 
     res.status(200).send(spells);
   } catch(e) {
